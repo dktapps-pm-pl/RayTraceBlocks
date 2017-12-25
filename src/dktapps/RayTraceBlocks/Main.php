@@ -36,10 +36,10 @@ class Main extends PluginBase implements Listener{
 			}else{
 				$event->getPlayer()->sendMessage("hit block $res->blockX $res->blockY $res->blockZ ($endTime ms)");
 				$level = $event->getPlayer()->getLevel();
-				$hitPos = new Vector3($res->blockX + 0.5, $res->blockY + 0.5, $res->blockZ + 0.5);
-				$level->addParticle(new HugeExplodeParticle($hitPos));
-				$level->broadcastLevelSoundEvent($hitPos, LevelSoundEventPacket::SOUND_EXPLODE);
-				$level->setBlock($hitPos, BlockFactory::get(Block::GLASS), true, true);
+
+				$level->addParticle(new HugeExplodeParticle($res->hitVector));
+				$level->broadcastLevelSoundEvent($res->hitVector, LevelSoundEventPacket::SOUND_EXPLODE);
+				$level->setBlock(new Vector3($res->blockX, $res->blockY, $res->blockZ), BlockFactory::get(Block::GLASS), true, true);
 			}
 		}
 	}
